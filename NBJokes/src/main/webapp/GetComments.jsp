@@ -50,9 +50,9 @@
 <%
 
 int post_id=Integer.parseInt(request.getParameter("id"));
-System.out.println(post_id);
+session.setAttribute("post_id", post_id);
 
-
+int id = post_id;
 
 ;
 %>
@@ -61,21 +61,20 @@ try {
 	   Class.forName("com.mysql.cj.jdbc.Driver");
 		String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 		String user="root";
-		String password="azerty";
+		String password="root";
 		Connection conn= DriverManager.getConnection(url, user, password);
 		Statement stm= conn.createStatement();
 		
 		
 
-		ResultSet res1=stm.executeQuery("SELECT firstname,contenu,post_title,nbr_like,nbr_dislike,nbr_share,nbr_comments FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
+		ResultSet res1=stm.executeQuery("SELECT firstname,contenu,nbr_like,nbr_dislike,date  FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
 				"where post_id='"+post_id+"' and auteur=email order by date;\r\n");
-		while(res1.next()) {String name=res1.getString(1);
-		String contenu=res1.getString(2);
-		String title=res1.getString(3);
-		int voteUp=Integer.parseInt(res1.getString(4));
-		int voteDown=Integer.parseInt(res1.getString(5));
-		int nbr_share=Integer.parseInt(res1.getString(6));
-		int nbr_comments=Integer.parseInt(res1.getString(7));
+		while(res1.next()) {
+			String name=res1.getString("firstname");
+			String contenu=res1.getString("contenu");	
+			int voteUp=Integer.parseInt(res1.getString("nbr_like"));
+			int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
+			String date = res1.getString("date");
 		%>
 		<div class="container">
 		<div class="jumbotron" >
@@ -84,37 +83,39 @@ try {
 			</div>
 			
 			<div style="background:#e5989b !important" class="jumbotron">
-				<div class="row">
-					<h1><%= title%></h1>
-				</div>
+				
 				<p><%= contenu%>
 				</p>
-
-				<div>
-				  	<div class="row">
-				    	<button type="button" class="btn btn-secondary mr-1">
-				    		vote <i class="fas fa-arrow-alt-circle-up"><%= voteUp%></i> 
+				<div class="row">
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LikePost?id=<%= id%>">
+				    	<button type="button" class="btn btn-secondary mr-1">	
+				    		vote up <i class="fas fa-arrow-alt-circle-up"><%= voteUp%></i> 
 				    	</button>
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%= id%>">
 						<button type="button" class="btn btn-secondary mr-1">
 							vote <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
 						</button>
-						<button type="button" class="btn btn-secondary mr-1">
-							share <i class="fas fa-share-alt"><%= nbr_share%></i>
-						</button>
-						<button type="button" class="btn btn-secondary">
-							comments <i class="fas fa-comments"><%= nbr_comments%></i>
-						</button>
+						<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/GetComments.jsp?id=<%= id%>">
+							<button type="button" class="btn btn-secondary">
+							 comments 
+							<i class="fas fa-comments"><%= voteDown%> </i>
+							</button>
+						</a> 
 				  	</div>
-				</div>
+				
 			</div>
 			<br>
-			<div class="form-group">
-	    		<label for="exampleFormControlTextarea1">  </label>
-	    		<textarea class="form-control" placeholder="Write your comment here !!" id="exampleFormControlTextarea1" rows="3"></textarea>
-			</div>
-			<div class="text-center">
-				<button type="submit" class="btn btn-outline-success">Comment</button>
-			</div>
+			<form  method="post" action="Record_Comment" >
+				<div class="form-group" >
+			    	<label for="exampleFormControlTextarea1">  </label>
+			    	<textarea name="contenu" class="form-control" placeholder="Write your comment" id="exampleFormControlTextarea1" rows="2"></textarea>
+				</div>
+
+				<div class="text-center">
+					<button class="btn btn-outline-success">Comment</button>
+				</div>
+			</form>
+
 			<br>
 			<%		}
 
@@ -130,21 +131,25 @@ try {
 %>
 			
 <%
-try {
+try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 	   Class.forName("com.mysql.cj.jdbc.Driver");
 		String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 		String user="root";
-		String password="azerty";
+		String password="root";
 		Connection conn= DriverManager.getConnection(url, user, password);
 		Statement stm= conn.createStatement();
 		
 		
+		System.out.println("GETTING A COMMENT");
 
 		ResultSet res=stm.executeQuery("SELECT  C.contenu,nbr_love FROM jeeproject_db.commentaire C,jeeproject_db.post P where C.post_id=P.post_id='"+post_id+"'" + 
 				"");
 		while(res.next()) {String contenu_comment=res.getString(1);
 		System.out.println(contenu_comment);
 		String nbr_love=res.getString(2);
+		
+		System.out.println("SHOWING THE COMMENT");
+
 		
 		%>
 			<div class="card">

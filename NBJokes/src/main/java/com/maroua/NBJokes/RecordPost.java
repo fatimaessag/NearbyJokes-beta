@@ -48,14 +48,14 @@ public class RecordPost extends HttpServlet {
 	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = Req.getSession();
-		 String name =(String) session.getAttribute("email");
-		 String contenu = Req.getParameter("contenu");
-		 String post_title = Req.getParameter("post_title");
+		String email =(String) session.getAttribute("email");
+		String contenu = Req.getParameter("contenu");
 
-		 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
-		   LocalDateTime now = LocalDateTime.now();  
-		    String date=dtf.format(now);  
-		 String loc = (String) session.getAttribute("localisation");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		String date=dtf.format(now);  
+		 
+		
 		 
 	     
 
@@ -63,19 +63,31 @@ public class RecordPost extends HttpServlet {
 	    	   Class.forName("com.mysql.cj.jdbc.Driver");
 				String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 				String user="root";
-				String password="azerty";
+				String password="root";
 				Connection conn= DriverManager.getConnection(url, user, password);
-				Statement stm= conn.createStatement();
-				ResultSet j=stm.executeQuery("SELECT Max(post_id) FROM jeeproject_db.post \r\n" + 
-						"");
 				
+				/*getting the localisation of the user*/
+				Statement stm1= conn.createStatement();
+				ResultSet res=stm1.executeQuery("SELECT city FROM jeeproject_db.user WHERE email='" +email+"'");
+				res.next();
+				String city=res.getString(1);
+				
+				
+				
+				Statement stm2= conn.createStatement();
+				ResultSet j=stm2.executeQuery("SELECT Max(post_id) FROM jeeproject_db.post \r\n" + 
+						"");
+				j.next();
 				int Old_post=Integer.parseInt(j.getString(1));
 				int post_id= Old_post+1;
 				
 
-				int i=stm.executeUpdate("INSERT INTO jeeproject_db.post ()  VALUES ('"+post_id+"',0,'"+name+"','"+contenu+"','"+date+"',0, 0,0, '"+loc+"', '"+post_title+"', 0,0)");
+				int i=stm2.executeUpdate("INSERT INTO jeeproject_db.post ()  VALUES ('"+post_id+"','"+email+"','"+contenu+"','"+date+"',0, 0,0, '"+city+"')");
 			    
-
+				/*need to redirect*/
+				session = Req.getSession();
+	        	session.setAttribute("message", "Your post was successfully published");
+				Req.getRequestDispatcher("/jokes.jsp").forward(Req,Res);
 				
 	     }catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

@@ -57,7 +57,7 @@ public class EditProfile extends HttpServlet {
 	    	   Class.forName("com.mysql.cj.jdbc.Driver");
 				String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 				String user="root";
-				String password="Najatelfrougui789";
+				String password="root";
 				Connection conn= DriverManager.getConnection(url, user, password);
 				Statement stm= conn.createStatement();
 				

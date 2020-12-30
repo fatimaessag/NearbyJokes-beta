@@ -34,15 +34,9 @@ public class LikePost extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		  
-	
-	}
-
-	
-	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("LikePOst servlet is being called");
 		String email = Req.getParameter("email");
-		 int post_id = Integer.parseInt(Req.getParameter("post_id"));
+		 int post_id = Integer.parseInt(Req.getParameter("id"));
 
 
 	     try {
@@ -55,18 +49,23 @@ public class LikePost extends HttpServlet {
 				
 				
 				ResultSet j=stm.executeQuery("SELECT nbr_like FROM jeeproject_db.post WHERE post_id ='"+post_id+"'");
-				
-				int old_nbr_like= Integer.parseInt(j.getString(1));				
+				j.next();
+				int new_nbr_like= Integer.parseInt(j.getString("nbr_like"))+1;				
 
 				/* --- */
-				PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.post SET nbr_like ='?' WHERE post_id='?' ");
+				PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.post SET nbr_like =? WHERE post_id=? ");
 				
-				stmt.setInt(1,old_nbr_like +1);
+				stmt.setInt(1,new_nbr_like);
 				stmt.setInt(2,post_id); 
 
 				/*il nous manque encore une solution pour interdir le même utilisateur de "liker" un poste maintes fois*/
 				/*on pense à établir une table par utilisateur où les activités seront enregistrés, chose qui nous permettera de préciser s'il a déja aimer ce post ou non*/
 				int i=stmt.executeUpdate();  
+				
+				HttpSession session = Req.getSession();
+	        	session.setAttribute("color", "red");
+	        	session.setAttribute("message", "You liked the post");
+				Req.getRequestDispatcher("/jokes.jsp").forward(Req,Res);
 
 	     }catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -77,6 +76,13 @@ public class LikePost extends HttpServlet {
 			}
 	     
 	  
+	
+	}
+
+	
+	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 
 		 
 

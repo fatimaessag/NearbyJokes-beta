@@ -52,16 +52,16 @@ background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 74%);
 	<br>
 	<div class="container">
 		<div class="jumbotron">
+			<form  method="post" action="RecordPost" >
+				<div class="form-group" >
+			    	<label for="exampleFormControlTextarea1">  </label>
+			    	<textarea name="contenu" class="form-control" placeholder="Write your joke !!" id="exampleFormControlTextarea1" rows="3"></textarea>
+				</div>
 
-			<div class="form-group">
-		    	<label for="exampleFormControlTextarea1">  </label>
-		    	<textarea class="form-control" placeholder="Write your joke !!" id="exampleFormControlTextarea1" rows="3"></textarea>
-			</div>
-
-			<div class="text-center">
-				<button class="btn btn-outline-success">Post</button>
-			</div>
-			
+				<div class="text-center">
+					<button class="btn btn-outline-success">Post</button>
+				</div>
+			</form>
 		</div>
 	</div>
 
@@ -88,13 +88,15 @@ try {
 	    String city = res1.getString("city");
 	    System.out.println("first query successfully executed, the city is :"+city);
 	    
-		ResultSet res=stm.executeQuery("SELECT firstname,contenu,nbr_like,nbr_dislike,post_id FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
+		ResultSet res=stm.executeQuery("SELECT firstname,lastname,contenu,nbr_like,nbr_dislike,post_id FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
 				"where localisation='"+city+"' and auteur=email order by date;\r\n" + 
 				"");
 		
 	    System.out.println("second query successfully executed");
 
-		while(res.next()) {String name=res.getString("firstname");
+		while(res.next()) {
+		String name=res.getString("firstname");
+		String lsname=res.getString("lastname");
 		String contenu=res.getString("contenu");
 		int voteUp=Integer.parseInt(res.getString("nbr_like"));
 		int voteDown=Integer.parseInt(res.getString("nbr_dislike"));
@@ -112,7 +114,7 @@ try {
 		<div class="container">
 		<div class="jumbotron" >
 			<div>
-				<i class="fas fa-user fa-7x"></i><p><%= name%></p>
+				<i class="fas fa-user fa-7x"></i><p><%= name +" " + lsname%></p>
 			</div>
 			
 			<div style="background:#e5989b !important" class="jumbotron">
@@ -121,16 +123,18 @@ try {
 
 				<div>
 				  	<div class="row">
-				    	<button type="button" class="btn btn-secondary mr-1">
-				    		vote <i class="fas fa-arrow-alt-circle-up"><%= voteUp%></i> 
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LikePost?id=<%=id%>">
+				    	<button type="button" class="btn btn-secondary mr-1">	
+				    		vote up <i class="fas fa-arrow-alt-circle-up"><%= voteUp%></i> 
 				    	</button>
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%=id%>">
 						<button type="button" class="btn btn-secondary mr-1">
 							vote <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
 						</button>
-						<a style="color: #FFFFFF;" href="http://localhost:8080/NearByJokes/GetComments.jsp?id=<%= id%>">
+						<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/GetComments.jsp?id=<%=id%>">
 							<button type="button" class="btn btn-secondary">
 							 comments 
-							<i class="fas fa-comments"> 2 </i>
+							<i class="fas fa-comments"><%= voteDown%> </i>
 							</button>
 						</a> 
 				  	</div>

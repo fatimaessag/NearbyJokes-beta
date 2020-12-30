@@ -47,6 +47,8 @@ public class Record_Comment extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("doPost RecordComment is called");
 		HttpSession session = Req.getSession();
 		 String name =(String) session.getAttribute("email");
 		 int post_id = (Integer)session.getAttribute("post_id");
@@ -61,18 +63,26 @@ public class Record_Comment extends HttpServlet {
 	    	   Class.forName("com.mysql.cj.jdbc.Driver");
 				String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 				String user="root";
-				String password="azerty";
+				String password="root";
 				Connection conn= DriverManager.getConnection(url, user, password);
 				Statement stm= conn.createStatement();
 				ResultSet j=stm.executeQuery("SELECT Max(comment_id) FROM jeeproject_db.commentaire \r\n" + 
 						"");
+				int comment_id;
+				if(j.next()) {
 				
 				int Old_comment=Integer.parseInt(j.getString(1));
-				int comment_id= Old_comment+1;
-				
-
+					comment_id= Old_comment+1;
+					
+				}else {
+					comment_id = 0;
+				}
 				int i=stm.executeUpdate("INSERT INTO jeeproject_db.commentaire ()  VALUES ('"+comment_id+"',0,'"+name+"','"+contenu+"','"+date+"','"+post_id+"')");
 			    
+				session = Req.getSession();
+	        	session.setAttribute("message", "comment successfully added");
+
+				Req.getRequestDispatcher("/GetComments.jsp?id="+post_id).forward(Req,Res);
 
 				
 	     }catch (ClassNotFoundException e) {
