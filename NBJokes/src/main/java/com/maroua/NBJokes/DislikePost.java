@@ -38,13 +38,13 @@ public class DislikePost extends HttpServlet {
 		System.out.println("this servlet is being called");
 		String email = Req.getParameter("email");
 		 int post_id = Integer.parseInt(Req.getParameter("id"));
-
+		 int k = Integer.parseInt(Req.getParameter("k"));
 
 	     try {
 	    	   Class.forName("com.mysql.cj.jdbc.Driver");
 				String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 				String user="root";
-				String db_password="root";
+				String db_password="azerty";
 				Connection conn= DriverManager.getConnection(url, user, db_password);
 				Statement stm= conn.createStatement();
 				
@@ -66,7 +66,10 @@ public class DislikePost extends HttpServlet {
 				HttpSession session = Req.getSession();
 	        	session.setAttribute("color", "red");
 	        	session.setAttribute("message", "You disliked the post");
-				Req.getRequestDispatcher("/jokes.jsp").forward(Req,Res);
+	        	if(k==1) {
+					Req.getRequestDispatcher("/jokes.jsp").forward(Req,Res);}
+		        if(k==2) {
+						Req.getRequestDispatcher("/GetComments.jsp").forward(Req,Res);}
 
 	     }catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
