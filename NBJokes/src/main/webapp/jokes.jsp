@@ -129,11 +129,11 @@ try {
 
 				<div>
 				  	<div class="row">
-				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LikePost?id=<%=id%>">
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LikePost?id=<%=id%>&k=1">
 				    	<button type="button" class="btn btn-secondary mr-1">	
 				    		vote up <i class="fas fa-arrow-alt-circle-up"><%= voteUp%></i> 
 				    	</button>
-				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%=id%>">
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%=id%>&k=1">
 						<button type="button" class="btn btn-secondary mr-1">
 							vote <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
 						</button>

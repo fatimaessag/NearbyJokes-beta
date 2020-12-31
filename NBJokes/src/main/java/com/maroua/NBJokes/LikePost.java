@@ -44,7 +44,7 @@ public class LikePost extends HttpServlet {
 	    	   Class.forName("com.mysql.cj.jdbc.Driver");
 				String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
 				String user="root";
-				String db_password="azerty";
+				String db_password="root";
 				Connection conn= DriverManager.getConnection(url, user, db_password);
 				Statement stm= conn.createStatement();
 				

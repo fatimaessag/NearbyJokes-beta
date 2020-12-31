@@ -57,36 +57,33 @@ int id = post_id;
 ;
 %>
 <%
-try {
-	   Class.forName("com.mysql.cj.jdbc.Driver");
-		String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
-		String user="root";
-		String password="root";
-		Connection conn= DriverManager.getConnection(url, user, password);
-		Statement stm= conn.createStatement();
-		Statement stm2= conn.createStatement();
-
-		
-
-		ResultSet res1=stm.executeQuery("SELECT firstname,contenu,nbr_like,nbr_dislike,date  FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
-				"where post_id='"+post_id+"' and auteur=email order by date;\r\n");
-		res1.next();
-		String name=res1.getString("firstname");
-		String contenu=res1.getString("contenu");	
-		int voteUp=Integer.parseInt(res1.getString("nbr_like"));
-		int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
-		String date = res1.getString("date");
-		
-		ResultSet res2=stm2.executeQuery("SELECT count(*) as NUM FROM jeeproject_db.commentaire WHERE post_id='"+id+"'");
-		res2.next();
-		int comments_count = res2.getInt("NUM");
-	    System.out.println("second query successfully executed");
-
+try {		Class.forName("com.mysql.cj.jdbc.Driver");
+			String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
+			String user="root";
+			String password="root";
+			Connection conn= DriverManager.getConnection(url, user, password);
+			Statement stm= conn.createStatement();
+			Statement stm2= conn.createStatement();
+			
+			ResultSet res1=stm.executeQuery("SELECT firstname,lastname,contenu,nbr_like,nbr_dislike,date  FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
+					"where post_id='"+post_id+"' and auteur=email order by date;\r\n");
+			res1.next();
+			String name=res1.getString("firstname");
+			String lsname=res1.getString("lastname");
+			String contenu=res1.getString("contenu");
+			int voteUp=Integer.parseInt(res1.getString("nbr_like"));
+			int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
+			String date = res1.getString("date");
+			
+			ResultSet res2=stm2.executeQuery("SELECT count(*) as NUM FROM jeeproject_db.commentaire WHERE post_id='"+id+"'");
+			res2.next();
+			int comments_count = res2.getInt("NUM");
+			System.out.println("second query successfully executed");
 		%>
 		<div class="container">
 		<div class="jumbotron" >
 			<div>
-				<i class="fas fa-user fa-7x"></i><p><%= name%></p>
+				<i class="fas fa-user fa-7x"></i><p><%= name +" " + lsname%></p>
 			</div>
 			
 			<div style="background:#e5989b !important" class="jumbotron">
@@ -94,11 +91,11 @@ try {
 				<p><%= contenu%>
 				</p>
 				<div class="row">
-				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LikePost?id=<%= id%>">
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LikePost?id=<%= id%>&k=2">
 				    	<button type="button" class="btn btn-secondary mr-1">	
 				    		vote up <i class="fas fa-arrow-alt-circle-up"><%= voteUp%></i> 
 				    	</button>
-				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%= id%>">
+				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%= id%>&k=2">
 						<button type="button" class="btn btn-secondary mr-1">
 							vote <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
 						</button>
@@ -149,13 +146,14 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 		
 		System.out.println("GETTING A COMMENT");
 
-		ResultSet res=stm.executeQuery("SELECT  C.contenu,nbr_love FROM jeeproject_db.commentaire C,jeeproject_db.post P where C.post_id=P.post_id AND P.post_id='"+post_id+"'");
-		while(res.next()) {
-			String contenu_comment=res.getString(1);
-			System.out.println(contenu_comment);
-			String nbr_love=res.getString(2);
-			
-			System.out.println("SHOWING THE COMMENT");
+		ResultSet res=stm.executeQuery("SELECT  C.contenu,nbr_love,C.date FROM jeeproject_db.commentaire C,jeeproject_db.post P where C.post_id='"+post_id+"' and P.post_id='"+post_id+"' order by C.date desc" + 
+				"");
+		while(res.next()) {String contenu_comment=res.getString(1);
+		System.out.println(contenu_comment);
+		String nbr_love=res.getString(2);
+		String date = res.getString(3);
+		
+		System.out.println("SHOWING THE COMMENT");
 
 		
 		%>
@@ -171,6 +169,9 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 		    	</button>
 				
 				
+				<button type="button" class="btn btn-secondary">
+					 <i class="fas fa-comments"> <%= date%></i>
+				</button>
 		  	</div>
 		  	<%		}
 

@@ -106,7 +106,7 @@
 
 			        <div class="text-center">
 				 		<a style="color: #FFFFFF " 
-				 			href="http://localhost:8080/NearByJokes/profile.jsp?id=<%= "chihab dir l ID hna"%>">
+				 			href="http://localhost:8080/NBJokes/profile.jsp?id=<%= "chihab dir l ID hna"%>">
 							<button type="button" style="width: 200px" class="btn btn-success ">
 							 Edit Profile 
 							</button>

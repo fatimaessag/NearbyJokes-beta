@@ -39,7 +39,7 @@ public class Login extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        System.out.println("Login do post was called");
+        System.out.println("Login do post was called too");
 
 		 String email = Req.getParameter("email");
 		 String entered_password = Req.getParameter("password");
@@ -77,11 +77,19 @@ public class Login extends HttpServlet {
 						Req.getRequestDispatcher("/login.jsp").forward(Req,Res);
 
 						/*send to login page */
-				        System.out.println("this email s not in the DB");
-
+				        System.out.println("wrong infos");
+					}
 						
 					
-				}
+				}else {
+					/* what happens if the login infos are wrong:*/
+					HttpSession session = Req.getSession();
+		        	session.setAttribute("message", "the login informations are not correct");
+					Req.getRequestDispatcher("/login.jsp").forward(Req,Res);
+
+					/*send to login page */
+			        System.out.println("this email s not in the DB");
+
 			     
 			      }
 				
