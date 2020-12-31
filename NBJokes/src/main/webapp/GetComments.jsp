@@ -64,7 +64,8 @@ try {
 		String password="root";
 		Connection conn= DriverManager.getConnection(url, user, password);
 		Statement stm= conn.createStatement();
-		
+		Statement stm2= conn.createStatement();
+
 		
 
 		ResultSet res1=stm.executeQuery("SELECT firstname,contenu,nbr_like,nbr_dislike,date  FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
@@ -75,6 +76,12 @@ try {
 			int voteUp=Integer.parseInt(res1.getString("nbr_like"));
 			int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
 			String date = res1.getString("date");
+			
+			ResultSet res2=stm2.executeQuery("SELECT count(*) as NUM FROM jeeproject_db.commentaire WHERE post_id='"+id+"'");
+			res2.next();
+			int comments_count = res2.getInt("NUM");
+		    System.out.println("second query successfully executed");
+
 		%>
 		<div class="container">
 		<div class="jumbotron" >
@@ -98,7 +105,7 @@ try {
 						<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/GetComments.jsp?id=<%= id%>">
 							<button type="button" class="btn btn-secondary">
 							 comments 
-							<i class="fas fa-comments"><%= voteDown%> </i>
+							<i class="fas fa-comments"><%= comments_count%> </i>
 							</button>
 						</a> 
 				  	</div>
@@ -142,13 +149,13 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 		
 		System.out.println("GETTING A COMMENT");
 
-		ResultSet res=stm.executeQuery("SELECT  C.contenu,nbr_love FROM jeeproject_db.commentaire C,jeeproject_db.post P where C.post_id=P.post_id='"+post_id+"'" + 
-				"");
-		while(res.next()) {String contenu_comment=res.getString(1);
-		System.out.println(contenu_comment);
-		String nbr_love=res.getString(2);
-		
-		System.out.println("SHOWING THE COMMENT");
+		ResultSet res=stm.executeQuery("SELECT  C.contenu,nbr_love FROM jeeproject_db.commentaire C,jeeproject_db.post P where C.post_id=P.post_id AND P.post_id='"+post_id+"'");
+		while(res.next()) {
+			String contenu_comment=res.getString(1);
+			System.out.println(contenu_comment);
+			String nbr_love=res.getString(2);
+			
+			System.out.println("SHOWING THE COMMENT");
 
 		
 		%>
@@ -164,9 +171,6 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 		    	</button>
 				
 				
-				<button type="button" class="btn btn-secondary">
-					comments <i class="fas fa-comments"> 0 </i>
-				</button>
 		  	</div>
 		  	<%		}
 

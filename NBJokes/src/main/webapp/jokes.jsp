@@ -76,6 +76,8 @@ try {
 		String password="root";
 		Connection conn= DriverManager.getConnection(url, user, password);
 		Statement stm= conn.createStatement();
+		Statement stm2= conn.createStatement();
+
 		int i=0;
 		List<Integer> listIds = new ArrayList<Integer>();
 		System.out.println("jokes servlet was called successfully");
@@ -89,7 +91,7 @@ try {
 	    System.out.println("first query successfully executed, the city is :"+city);
 	    
 		ResultSet res=stm.executeQuery("SELECT firstname,lastname,contenu,nbr_like,nbr_dislike,post_id FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
-				"where localisation='"+city+"' and auteur=email order by date;\r\n" + 
+				"where localisation='"+city+"' and auteur=email order by date desc;\r\n" + 
 				"");
 		
 	    System.out.println("second query successfully executed");
@@ -105,7 +107,11 @@ try {
 		int id=listIds.get(i);
 		i++;
 		
-		
+		ResultSet res2=stm2.executeQuery("SELECT count(*) as NUM FROM jeeproject_db.commentaire WHERE post_id='"+id+"'");
+		res2.next();
+		int comments_count = res2.getInt("NUM");
+	    System.out.println("second query successfully executed");
+
 		%>
 		
 		<form >
@@ -134,7 +140,7 @@ try {
 						<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/GetComments.jsp?id=<%=id%>">
 							<button type="button" class="btn btn-secondary">
 							 comments 
-							<i class="fas fa-comments"><%= voteDown%> </i>
+							<i class="fas fa-comments"><%= comments_count%> </i>
 							</button>
 						</a> 
 				  	</div>
