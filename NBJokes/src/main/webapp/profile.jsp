@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,86 +33,153 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container" style="margin-top: 40px">
-		<div class="jumbotron" >
-			<div>
-				<i class="fas fa-user fa-7x"></i><p>name</p>
-				<!-- <small class="text-muted">10 min ago</small> -->
 
-			</div>
-			
-			<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
-				<div class="row">
-					<h1>post title</h1>
+	<div class="row">
+		<div class="col-8">
+			<div class="container" style="margin-top: 40px">
+				<div class="jumbotron" >
+					<div>
+						<i class="fas fa-user fa-7x"></i><p>name</p>
+						<!-- <small class="text-muted">10 min ago</small> -->
+					</div>
+					<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						<div>
+						  	<div class="row">
+								<button type="button" class="btn btn-secondary mr-1">
+						    		vote <i class="fas fa-arrow-alt-circle-up"> 0 </i> 
+						    	</button>
+								<button type="button" class="btn btn-secondary mr-1">
+									vote <i class="fas fa-arrow-alt-circle-down"> 0 </i>
+								</button>
+								<a style="color: #FFFFFF;" href="http://localhost:8080/NearByJokes/GetComments.jsp?id=<%= "chihab ID hna"%>">
+									<button type="button" class="btn btn-secondary mr-1">
+									 comments 
+									<i class="fas fa-comments"> 0 </i>
+									</button>
+								</a>
+								<a style="color: #FFFFFF " 
+				 					href="http://localhost:8080/NearByJokes/editpost.jsp?id=<%= "chihab ID hna"%>">
+									<button type="button" class="btn btn-secondary mr-1">
+										edit <i class="fas fa-edit"></i>
+									</button>
+								</a>
+						  	</div>
+						</div>
+					</div>
 				</div>
-				
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</p>
-				<div>
-				  	<div class="row">
-						<button type="button" class="btn btn-secondary mr-1">
-				    		vote <i class="fas fa-arrow-alt-circle-up"> 0 </i> 
-				    	</button>
-						<button type="button" class="btn btn-secondary mr-1">
-							vote <i class="fas fa-arrow-alt-circle-down"> 0 </i>
-						</button>
-						<button type="button" class="btn btn-secondary mr-1">
-							share <i class="fas fa-share-alt"> 0 </i>
-						</button>
-						<button type="button" class="btn btn-secondary">
-							comments <i class="fas fa-comments"> 0 </i>
-						</button>
+			</div>
+			<div class="container">
+				<div class="jumbotron" >
+					<div>
+						<i class="fas fa-user fa-7x"></i><p>name</p>
+						<!-- <small class="text-muted">10 min ago</small> -->
+					</div>
+					<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+						<div>
+						  	<div class="row">
+								<button type="button" class="btn btn-secondary mr-1">
+						    		vote <i class="fas fa-arrow-alt-circle-up"> 0 </i> 
+						    	</button>
+								<button type="button" class="btn btn-secondary mr-1">
+									vote <i class="fas fa-arrow-alt-circle-down"> 0 </i>
+								</button>
+								<a style="color: #FFFFFF;" href="http://localhost:8080/NearByJokes/GetComments.jsp?id=<%= "chihab dir ID hna "%>">
+									<button type="button" class="btn btn-secondary mr-1">
+									 comments 
+									<i class="fas fa-comments"> 2 </i>
+									</button>
+								</a> 
+
+								<a style="color: #FFFFFF " 
+				 					href="http://localhost:8080/NearByJokes/editpost.jsp?id=<%= "chihab dir ID hna "%>">
+									<button type="button" class="btn btn-secondary ">
+										edit <i class="fas fa-edit"></i>
+									</button>
+								</a>
+						  	</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-4">
+			<div class="container" style="margin-top: 40px">
+				<h1>Personal Information:</h1>	
+				<form  method="post" action="SignUp" >
+				  	<div class="form-row">
+				    	<div class="col-md-6 mb-3">
+				      		<label for="validationDefault01">First name</label>
+				      		<input name="First name" placeholder="chihab" readonly="readonly" type="text" class="form-control" id="validationDefault01" value="" required>
+				    	</div>
+				    	<div class="col-md-6 mb-3">
+				      		<label for="validationDefault02">Last name</label>
+				      		<input name ="Last name" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault02" value="" required>
+				    	</div>
 				  	</div>
-				</div>
+		  			<div class="form-group">
+						<label for="validationDefault03">Select birth date</label>
+						<input type="date" name="birthday" placeholder="" readonly="readonly" max="2020-12-31" min="1900-01-01" class="form-control" id="validationDefault03" required>
+					</div>
+		  			<br>
+				  	<div class="form-row">
+				    	<div class="col-md-6 mb-3">
+					      	<label for="validationDefault04">Adress</label>
+					      	<input name="adress" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault04" required>
+				    	</div>
+					    <div class="col-md-3 mb-3">
+					      	<label for="validationDefault05">City</label>
+					      	<input name="city" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault05">
+					      	
+						    
+					    </div>
+					    <div class="col-md-3 mb-3">
+					      	<label for="validationDefault06">Zip</label>
+					      	<input name ="zip" placeholder="" readonly="readonly"  type="text" class="form-control" id="validationDefault05" required>
+					    </div>
+				  	</div>
+
+				  	<div class="form-row">
+				    	<div class="col-md-6 mb-3">
+				     	 	<label for="validationDefault07">Email Adress</label>
+				     	 	<input name="email" placeholder="" readonly="readonly"  type="email" class="form-control" id="validationDefault01" value="" required>
+				     	 	<small id="emailHelp" class="form-text text-muted">
+				     	 		We'll never share your email with anyone else.
+				     	 	</small>
+				   	 	</div>
+				 	</div>
+
+
+				 	 
+
+				 	<div class="text-center">
+				 		<a style="color: #FFFFFF " 
+				 			href="http://localhost:8080/NBJokes/editprofile.jsp?id=<%= "chihab ID hna"%>">
+							<button type="button" style="width: 200px" class="btn btn-success ">
+							 Edit Profile 
+							</button>
+						</a>
+			        </div>
+				
+			</form>
 			</div>
-			
 		</div>
 	</div>
-	<div class="container">
-		<div class="jumbotron" >
-			<div>
-				<i class="fas fa-user fa-7x"></i><p>name</p>
-				<!-- <small class="text-muted">10 min ago</small> -->
 
-			</div>
-			
-			<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
-				<div class="row">
-					<h1>post title</h1>
-				</div>
-				
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</p>
-				<div>
-				  	<div class="row">
-						<button type="button" class="btn btn-secondary mr-1">
-				    		vote <i class="fas fa-arrow-alt-circle-up"> 0 </i> 
-				    	</button>
-						<button type="button" class="btn btn-secondary mr-1">
-							vote <i class="fas fa-arrow-alt-circle-down"> 0 </i>
-						</button>
-						<button type="button" class="btn btn-secondary mr-1">
-							share <i class="fas fa-share-alt"> 0 </i>
-						</button>
-						<button type="button" class="btn btn-secondary">
-							comments <i class="fas fa-comments"> 0 </i>
-						</button>
-				  	</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
+	
 	<nav aria-label="Page navigation example">
 	  	<ul class="pagination justify-content-center">
 		    <li class="page-item disabled">

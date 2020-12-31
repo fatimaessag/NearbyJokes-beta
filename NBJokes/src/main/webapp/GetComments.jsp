@@ -70,17 +70,17 @@ try {
 
 		ResultSet res1=stm.executeQuery("SELECT firstname,contenu,nbr_like,nbr_dislike,date  FROM jeeproject_db.post , jeeproject_db.user\r\n" + 
 				"where post_id='"+post_id+"' and auteur=email order by date;\r\n");
-		while(res1.next()) {
-			String name=res1.getString("firstname");
-			String contenu=res1.getString("contenu");	
-			int voteUp=Integer.parseInt(res1.getString("nbr_like"));
-			int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
-			String date = res1.getString("date");
-			
-			ResultSet res2=stm2.executeQuery("SELECT count(*) as NUM FROM jeeproject_db.commentaire WHERE post_id='"+id+"'");
-			res2.next();
-			int comments_count = res2.getInt("NUM");
-		    System.out.println("second query successfully executed");
+		res1.next();
+		String name=res1.getString("firstname");
+		String contenu=res1.getString("contenu");	
+		int voteUp=Integer.parseInt(res1.getString("nbr_like"));
+		int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
+		String date = res1.getString("date");
+		
+		ResultSet res2=stm2.executeQuery("SELECT count(*) as NUM FROM jeeproject_db.commentaire WHERE post_id='"+id+"'");
+		res2.next();
+		int comments_count = res2.getInt("NUM");
+	    System.out.println("second query successfully executed");
 
 		%>
 		<div class="container">
@@ -124,7 +124,7 @@ try {
 			</form>
 
 			<br>
-			<%		}
+			<%		
 
 
 		
