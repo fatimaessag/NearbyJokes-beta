@@ -97,10 +97,10 @@ try {		Class.forName("com.mysql.cj.jdbc.Driver");
 				    	</button>
 				  		<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/DislikePost?id=<%= id%>&k=2">
 						<button type="button" class="btn btn-secondary mr-1">
-							vote <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
+							vote down <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
 						</button>
 						<a style="color: #FFFFFF;">
-						<button type="button" class="btn btn-secondary">
+						<button type="button" class="btn btn-secondary mr-1">
 							 <i class="fas fa-comments"><%= comments_count%> </i> Comments
 						</button>
 						</a>
@@ -173,6 +173,7 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 			</div>
 
 			<div class="row mr-1">
+				<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/LoveComment?redirect=GetComments?id="+post_id>
 		    	<button type="button" class="btn btn-secondary mr-1" style=" margin: auto; ">
 		    		love <i class="far fa-heart"> <%= nbr_love%> </i>  
 		    	</button>

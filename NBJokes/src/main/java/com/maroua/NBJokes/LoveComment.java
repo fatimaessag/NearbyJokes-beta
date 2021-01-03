@@ -65,7 +65,12 @@ public class LoveComment extends HttpServlet {
 				stmt.setInt(2,comment_id); 
 
 
-				int i=stmt.executeUpdate();  
+				int i=stmt.executeUpdate(); 
+				String redirect= (String) Req.getAttribute("redirect");
+				HttpSession session = Req.getSession();
+	        	session.setAttribute("message", "You liked the post");
+	        
+				Req.getRequestDispatcher("/"+redirect).forward(Req,Res);
 
 	     }catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

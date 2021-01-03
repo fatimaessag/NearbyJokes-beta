@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
 <head>
 	<title>Profile</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -33,129 +34,73 @@
 			</div>
 		</div>
 	</nav>
-
+	<br>
 	<div class="row">
-		<div class="col-8">
-			<div class="container" style="margin-top: 40px">
-				<div class="jumbotron" >
-					<div>
-						<i class="fas fa-user fa-7x"></i><p>name</p>
-						<!-- <small class="text-muted">10 min ago</small> -->
-					</div>
-					<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						<div>
-						  	<div class="row">
-								<button type="button" class="btn btn-secondary mr-1">
-						    		vote <i class="fas fa-arrow-alt-circle-up"> 0 </i> 
-						    	</button>
-								<button type="button" class="btn btn-secondary mr-1">
-									vote <i class="fas fa-arrow-alt-circle-down"> 0 </i>
-								</button>
-								<a style="color: #FFFFFF;" href="http://localhost:8080/NearByJokes/GetComments.jsp?id=<%= "chihab ID hna"%>">
-									<button type="button" class="btn btn-secondary mr-1">
-									 comments 
-									<i class="fas fa-comments"> 0 </i>
-									</button>
-								</a>
-								<a style="color: #FFFFFF " 
-				 					href="http://localhost:8080/NearByJokes/editpost.jsp?id=<%= "chihab ID hna"%>">
-									<button type="button" class="btn btn-secondary mr-1">
-										edit <i class="fas fa-edit"></i>
-									</button>
-								</a>
-						  	</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="container">
-				<div class="jumbotron" >
-					<div>
-						<i class="fas fa-user fa-7x"></i><p>name</p>
-						<!-- <small class="text-muted">10 min ago</small> -->
-					</div>
-					<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-						<div>
-						  	<div class="row">
-								<button type="button" class="btn btn-secondary mr-1">
-						    		vote <i class="fas fa-arrow-alt-circle-up"> 0 </i> 
-						    	</button>
-								<button type="button" class="btn btn-secondary mr-1">
-									vote <i class="fas fa-arrow-alt-circle-down"> 0 </i>
-								</button>
-								<a style="color: #FFFFFF;" href="http://localhost:8080/NearByJokes/GetComments.jsp?id=<%= "chihab dir ID hna "%>">
-									<button type="button" class="btn btn-secondary mr-1">
-									 comments 
-									<i class="fas fa-comments"> 2 </i>
-									</button>
-								</a> 
+			<%@page  import="java.io.IOException,java.io.PrintWriter,java.sql.Connection,java.sql.DriverManager,java.sql.ResultSet,java.sql.SQLException,java.sql.Statement,javax.servlet.ServletException,javax.servlet.annotation.WebServlet,javax.servlet.http.HttpServlet,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse"
+%>
 
-								<a style="color: #FFFFFF " 
-				 					href="http://localhost:8080/NearByJokes/editpost.jsp?id=<%= "chihab dir ID hna "%>">
-									<button type="button" class="btn btn-secondary ">
-										edit <i class="fas fa-edit"></i>
-									</button>
-								</a>
-						  	</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+<%
+try {
+	   Class.forName("com.mysql.cj.jdbc.Driver");
+		String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
+		String user="root";
+		String password="root";
+		Connection conn= DriverManager.getConnection(url, user, password);
+		Statement stm= conn.createStatement();
+		
+		String email = (String) session.getAttribute("email");
 
-		<div class="col-4">
+		ResultSet res1=stm.executeQuery("SELECT firstname,lastname,email ,birthday,address,city,zip  FROM  jeeproject_db.user\r\n" + 
+				"where email='"+email+"';\r\n");
+		while(res1.next()) {
+			String firstname = res1.getString("firstname");
+			String lastname = res1.getString("lastname");	
+			String birthday = res1.getString("birthday");
+			String address = res1.getString("address");
+			String city = res1.getString("city");
+			String zip = res1.getString("zip");
+		%>
+
+		<div class="col-4" style="margin-left :33%">
 			<div class="container" style="margin-top: 40px">
 				<h1>Personal Information:</h1>	
 				<form  method="post" action="SignUp" >
 				  	<div class="form-row">
 				    	<div class="col-md-6 mb-3">
-				      		<label for="validationDefault01">First name</label>
-				      		<input name="First name" placeholder="chihab" readonly="readonly" type="text" class="form-control" id="validationDefault01" value="" required>
+				      		<label for="validationDefault01"></label>
+				      		<input name="First name" readonly="readonly" type="text" class="form-control" id="validationDefault01" value="<%= firstname%>" required>
 				    	</div>
 				    	<div class="col-md-6 mb-3">
-				      		<label for="validationDefault02">Last name</label>
-				      		<input name ="Last name" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault02" value="" required>
+				      		<label for="validationDefault02"></label>
+				      		<input name ="Last name" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault02" value="<%= lastname%>" required>
 				    	</div>
 				  	</div>
 		  			<div class="form-group">
-						<label for="validationDefault03">Select birth date</label>
-						<input type="date" name="birthday" placeholder="" readonly="readonly" max="2020-12-31" min="1900-01-01" class="form-control" id="validationDefault03" required>
+						<label for="validationDefault03"></label>
+						<input type="date" name="birthday" value="<%= birthday%>" readonly="readonly" max="2020-12-31" min="1900-01-01" class="form-control" id="validationDefault03" required>
 					</div>
 		  			<br>
 				  	<div class="form-row">
 				    	<div class="col-md-6 mb-3">
-					      	<label for="validationDefault04">Adress</label>
-					      	<input name="adress" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault04" required>
+					      	<label for="validationDefault04"></label>
+					      	<input name="adress" value="<%= address%>" readonly="readonly" type="text" class="form-control" id="validationDefault04" required>
 				    	</div>
 					    <div class="col-md-3 mb-3">
-					      	<label for="validationDefault05">City</label>
-					      	<input name="city" placeholder="" readonly="readonly" type="text" class="form-control" id="validationDefault05">
+					      	<label for="validationDefault05"></label>
+					      	<input name="city" value="<%= city%>" readonly="readonly" type="text" class="form-control" id="validationDefault05">
 					      	
 						    
 					    </div>
 					    <div class="col-md-3 mb-3">
-					      	<label for="validationDefault06">Zip</label>
-					      	<input name ="zip" placeholder="" readonly="readonly"  type="text" class="form-control" id="validationDefault05" required>
+					      	<label for="validationDefault06"></label>
+					      	<input name ="zip" value="<%= zip%>" readonly="readonly"  type="text" class="form-control" id="validationDefault05" required>
 					    </div>
 				  	</div>
 
 				  	<div class="form-row">
 				    	<div class="col-md-6 mb-3">
-				     	 	<label for="validationDefault07">Email Adress</label>
-				     	 	<input name="email" placeholder="" readonly="readonly"  type="email" class="form-control" id="validationDefault01" value="" required>
+				     	 	<label for="validationDefault07"></label>
+				     	 	<input name="email" value="<%= email%>" readonly="readonly"  type="email" class="form-control" id="validationDefault01" value="" required>
 				     	 	<small id="emailHelp" class="form-text text-muted">
 				     	 		We'll never share your email with anyone else.
 				     	 	</small>
@@ -167,17 +112,104 @@
 
 				 	<div class="text-center">
 				 		<a style="color: #FFFFFF " 
-				 			href="http://localhost:8080/NBJokes/editprofile.jsp?id=<%= "chihab ID hna"%>">
+				 			href="http://localhost:8080/NBJokes/editprofile.jsp?email="+email>
 							<button type="button" style="width: 200px" class="btn btn-success ">
 							 Edit Profile 
 							</button>
 						</a>
 			        </div>
-				
-			</form>
+			        
+			        </form>
 			</div>
 		</div>
 	</div>
+	
+	<%		}
+		
+}catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+%>
+
+<%
+try {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+		String url="jdbc:mysql://127.0.0.1:3306/jeeproject_db?autoReconnect=true&serverTimezone=UTC&useSSL=False&allowPublicKeyRetrieval=true";
+		String user="root";
+		String password="root";
+		Connection conn= DriverManager.getConnection(url, user, password);
+		Statement stm= conn.createStatement();
+		
+		String email = (String) session.getAttribute("email");
+		System.out.println("this is the email"+ email);
+
+		ResultSet res1=stm.executeQuery("SELECT post_id,firstname,contenu,nbr_like,nbr_dislike,date  FROM jeeproject_db.post,jeeproject_db.user \r\n" + 
+				"where auteur='"+email+"'and auteur=email order by date;\r\n");
+		while(res1.next() ) {
+			String post_id = res1.getString("post_id");
+			String contenu=res1.getString("contenu");
+			String firstname=res1.getString("firstname");
+			int voteUp=Integer.parseInt(res1.getString("nbr_like"));
+			int voteDown=Integer.parseInt(res1.getString("nbr_dislike"));
+			String date = res1.getString("date");
+		%>
+
+		
+		<div class="container">
+		
+			<div class="container" style="margin-top: 40px">
+				<div class="jumbotron" >
+					<div>
+						<i class="fas fa-user fa-7x"></i><p><%= firstname%></p>
+						<!-- <small class="text-muted">10 min ago</small> -->
+					</div>
+					<div style="background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 100%);" class="jumbotron">
+						<p><%= contenu%></p>
+						<div>
+						  	<div class="row">
+								<button type="button" class="btn btn-secondary mr-1">
+						    		vote <i class="fas fa-arrow-alt-circle-up"> <%= voteUp%> </i> 
+						    	</button>
+								<button type="button" class="btn btn-secondary mr-1">
+									vote <i class="fas fa-arrow-alt-circle-down"> <%= voteDown%> </i>
+								</button>
+								<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/GetComments.jsp?id=">
+									<button type="button" class="btn btn-secondary mr-1">
+									 comments 
+									<i class="fas fa-comments"> 0 </i>
+									</button>
+								</a>
+								<a style="color: #FFFFFF " 
+				 					href="http://localhost:8080/NBJokes/editpost.jsp?id="+post_id>
+									<button type="button" class="btn btn-secondary mr-1">
+										edit <i class="fas fa-edit"></i>
+									</button>
+								</a>
+						  	</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
+			<%		}
+
+
+		
+  }catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+
+%>
+		
 
 	
 	<nav aria-label="Page navigation example">

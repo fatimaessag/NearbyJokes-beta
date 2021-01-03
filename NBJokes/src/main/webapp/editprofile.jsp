@@ -33,7 +33,7 @@
 			<div class="jumbotron" style=" margin-top: 7em" >
 				<h1>You can now edit your profile :</h1><br>
 				<h6>Please fill in this form to edit:</h6><br><hr>
-				<form  method="post" action="SignUp" >
+				<form  method="post" action="EditProfile" >
 				  	<div class="form-row">
 				    	<div class="col-md-6 mb-3">
 				      		<label for="validationDefault01">First name</label>
@@ -106,7 +106,7 @@
 
 			        <div class="text-center">
 				 		<a style="color: #FFFFFF " 
-				 			href="http://localhost:8080/NBJokes/profile.jsp?id=<%= "chihab dir l ID hna"%>">
+				 			href="http://localhost:8080/NBJokes/profile.jsp">
 							<button type="button" style="width: 200px" class="btn btn-success ">
 							 Edit Profile 
 							</button>

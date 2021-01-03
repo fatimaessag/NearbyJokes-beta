@@ -42,7 +42,7 @@ public class SignUp extends HttpServlet {
 		 String birthday = Req.getParameter("birthday");
 		 String address = Req.getParameter("adress");
 		 String city = Req.getParameter("city");
-		 String email = Req.getParameter("email");
+		 String email = Req.getParameter("email").toLowerCase();
 		 String pass1 = Req.getParameter("password1");
 		 String zip = Req.getParameter("zip");
 		 String pass2 = Req.getParameter("password2");
@@ -56,7 +56,7 @@ public class SignUp extends HttpServlet {
 				Connection conn= DriverManager.getConnection(url, user, password);
 				Statement stm= conn.createStatement();
 
-				int i=stm.executeUpdate("INSERT INTO jeeproject_db.user ()  VALUES ('"+email.toLowerCase()+"','"+name+"','"+lastname+"','"+birthday+"','"+address+"','"+city+"','"+zip+"','"+pass1+"')");
+				int i=stm.executeUpdate("INSERT INTO jeeproject_db.user ()  VALUES ('"+email+"','"+name+"','"+lastname+"','"+birthday+"','"+address+"','"+city+"','"+zip+"','"+pass1+"')");
 				if(i==1) {
 					/*this should only be executed if the mail is nt already used by someone else*/
 					System.out.println("now we will redirect you to acceuil");

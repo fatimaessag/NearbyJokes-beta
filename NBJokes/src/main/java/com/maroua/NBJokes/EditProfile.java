@@ -23,8 +23,15 @@ public class EditProfile extends HttpServlet {
 	
       
     
-    public EditProfile( ) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public EditProfile( ) {
         super();
+        System.out.print("Edit Profile is being created as an objct");
      
     }
     
@@ -37,21 +44,24 @@ public class EditProfile extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
+		System.out.print("dopost in edit profile was called successfully");
 		// TODO Auto-generated method stub
 		String firstname = Req.getParameter("First name");
 		String lastname = Req.getParameter("Last name");
 		String birthday = Req.getParameter("birthday");
 		String address = Req.getParameter("adress");
 		String city = Req.getParameter("city");
-		String new_email = Req.getParameter("email");
-		String entered_password = Req.getParameter("password");
+		String new_email = Req.getParameter("email").toLowerCase();
+		String new_pass = Req.getParameter("password1");
+		String new_pass2 = Req.getParameter("password2");
 		String zip = Req.getParameter("zip");
-		String new_pass = Req.getParameter("new_password");
-		String new_pass2 = Req.getParameter("new_password2");
+		String entered_password = Req.getParameter("password0");
+		
 		
 		
 		HttpSession session = Req.getSession();
      	String old_email =  session.getAttribute("email").toString();
+     	System.out.print("This session email is : "+old_email +"   , we r using it in edit profile servelt");
 
 	     try {
 	    	   Class.forName("com.mysql.cj.jdbc.Driver");
@@ -97,41 +107,41 @@ public class EditProfile extends HttpServlet {
 						int i=stmt.executeUpdate();  }
 					/*changement du lastname*/
 					if (!lastname.equals("")) {
-						PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.user SET lastname ='?' WHERE email='?' ");
-						stmt.setString(1,lastname);
-						stmt.setString(2,old_email); 
-						int i=stmt.executeUpdate();  }
+						PreparedStatement stmt2=conn.prepareStatement("UPDATE jeeproject_db.user SET lastname ='?' WHERE email='?' ");
+						stmt2.setString(1,lastname);
+						stmt2.setString(2,old_email); 
+						int i=stmt2.executeUpdate();  }
 					/*changement du birthday*/
 					if (!birthday.equals("")) {
-						PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.user SET birthday ='?' WHERE email='?' ");
-						stmt.setString(1,birthday);
-						stmt.setString(2,old_email); 
-						int i=stmt.executeUpdate();  }
+						PreparedStatement stmt3=conn.prepareStatement("UPDATE jeeproject_db.user SET birthday ='?' WHERE email='?' ");
+						stmt3.setString(1,birthday);
+						stmt3.setString(2,old_email); 
+						int i=stmt3.executeUpdate();  }
 					/*changement d' addresse*/
 					if (!address.equals("")) {
-						PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.user SET address ='?' WHERE email='?' ");
-						stmt.setString(1,address);
-						stmt.setString(2,old_email); 
-						int i=stmt.executeUpdate();  }
+						PreparedStatement stmt4=conn.prepareStatement("UPDATE jeeproject_db.user SET address ='?' WHERE email='?' ");
+						stmt4.setString(1,address);
+						stmt4.setString(2,old_email); 
+						int i=stmt4.executeUpdate();  }
 					/*changement du city*/
 					if (!city.equals("")) {
-						PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.user SET city ='?' WHERE email='?' ");
-						stmt.setString(1,city);
-						stmt.setString(2,old_email); 
-						int i=stmt.executeUpdate();  }
+						PreparedStatement stmt5=conn.prepareStatement("UPDATE jeeproject_db.user SET city ='?' WHERE email='?' ");
+						stmt5.setString(1,city);
+						stmt5.setString(2,old_email); 
+						int i=stmt5.executeUpdate();  }
 					/*changement du Mot de passe*/
 					if (!new_pass.equals("")) {
-						PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.user SET password ='?' WHERE email='?' ");
-						stmt.setString(1,new_pass);
-						stmt.setString(2,old_email); 
-						int i=stmt.executeUpdate();  }
+						PreparedStatement stmt6=conn.prepareStatement("UPDATE jeeproject_db.user SET password ='?' WHERE email='?' ");
+						stmt6.setString(1,new_pass);
+						stmt6.setString(2,old_email); 
+						int i=stmt6.executeUpdate();  }
 					
 					/*changement d'email */
 					if (!new_email.equals("")) {
-						PreparedStatement stmt=conn.prepareStatement("UPDATE jeeproject_db.user SET password ='?' WHERE email='?' ");
-						stmt.setString(1,new_email);
-						stmt.setString(2,old_email); 
-						int i=stmt.executeUpdate();  }
+						PreparedStatement stmt7=conn.prepareStatement("UPDATE jeeproject_db.user SET password ='?' WHERE email='?' ");
+						stmt7.setString(1,new_email);
+						stmt7.setString(2,old_email); 
+						int i=stmt7.executeUpdate();  }
 					
 					
 					

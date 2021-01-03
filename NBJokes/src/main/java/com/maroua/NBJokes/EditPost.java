@@ -38,6 +38,7 @@ public class EditPost extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest Req, HttpServletResponse Res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("edit post was called");
 		int post_id = Integer.parseInt(Req.getParameter("post_id"));
 		String contenu = Req.getParameter("contenu");
 		HttpSession session = Req.getSession();

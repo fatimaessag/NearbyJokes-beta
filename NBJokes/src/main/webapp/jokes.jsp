@@ -38,7 +38,7 @@ background-image: linear-gradient(315deg, #eec0c6 0%, #e58c8a 74%);
     					<i class="fas fa-user"></i>
   					</button>
 	  				<ul class="dropdown-menu dropdown-menu-right">
-		  				<a class="dropdown-item" href="#">Profile</a>
+		  				<a href ="http://localhost:8080/NBJokes/profile.jsp" class="dropdown-item" href="#">Profile</a>
 		    			<a class="dropdown-item" href="#">Settings</a>
 		    			<a class="dropdown-item" href="#">About us</a>
 		    			<a class="dropdown-item" href="#">Help</a>

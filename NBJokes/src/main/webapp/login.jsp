@@ -28,10 +28,9 @@
 			</a>
 	      </li>
 	    </ul>
-	    <form class="form-inline my-2 my-lg-0">
-	      	<a href="http://localhost:8080/NBJokes/signup.jsp">
+	    <form action="signup.jsp" class="form-inline my-2 my-lg-0">
 	      		<button class="btn btn-outline-success my-2 my-sm-0" >Sign up</button>
-	      	</a>
+	      	
 	    </form>
 	  </div>
 	</nav>
