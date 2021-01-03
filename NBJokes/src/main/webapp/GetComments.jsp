@@ -99,12 +99,18 @@ try {		Class.forName("com.mysql.cj.jdbc.Driver");
 						<button type="button" class="btn btn-secondary mr-1">
 							vote <i class="fas fa-arrow-alt-circle-down"><%= voteDown%></i>
 						</button>
-						<a style="color: #FFFFFF;" href="http://localhost:8080/NBJokes/GetComments.jsp?id=<%= id%>">
+						<a style="color: #FFFFFF;">
+						<button type="button" class="btn btn-secondary">
+							 <i class="fas fa-comments"><%= comments_count%> </i> Comments
+						</button>
+						</a>
+						
+							
+						<a style="color: #FFFFFF;">
 							<button type="button" class="btn btn-secondary">
-							 comments 
-							<i class="fas fa-comments"><%= comments_count%> </i>
-							</button>
-						</a> 
+							<small> <%= date%></small>
+							</button><i></i>
+						
 				  	</div>
 				
 			</div>
@@ -148,7 +154,8 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 
 		ResultSet res=stm.executeQuery("SELECT  C.contenu,nbr_love,C.date FROM jeeproject_db.commentaire C,jeeproject_db.post P where C.post_id='"+post_id+"' and P.post_id='"+post_id+"' order by C.date desc" + 
 				"");
-		while(res.next()) {String contenu_comment=res.getString(1);
+		while(res.next()) {
+		String contenu_comment=res.getString(1);
 		System.out.println(contenu_comment);
 		String nbr_love=res.getString(2);
 		String date = res.getString(3);
@@ -158,8 +165,10 @@ try {			System.out.println("ENTRING THE SHOW COMMENT LOOP");
 		
 		%>
 			<div class="card">
+			</b>
 			  	<div class="card-body">
-			    	<%= contenu_comment%>
+			    	<p style="color:#000000";><%= contenu_comment%>
+				</p>
 			  	</div>
 			</div>
 
