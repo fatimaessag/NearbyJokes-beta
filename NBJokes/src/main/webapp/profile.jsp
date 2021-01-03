@@ -28,7 +28,9 @@
 		    			<a class="dropdown-item" href="#">Settings</a>
 		    			<a class="dropdown-item" href="#">About us</a>
 		    			<a class="dropdown-item" href="#">Help</a>
-		    			<a class="dropdown-item" href="#">Log out</a>
+		    			<form action="logOut" method="post">
+		    			<button class="dropdown-item" type="submit" >Log out</button>
+		  			     </form>
 		  			</ul>
 				</div>
 			</div>
